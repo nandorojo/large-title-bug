@@ -1,21 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+const { Navigator, Screen } = createNativeStackNavigator();
+
+function Home() {
+  return (
+    <ScrollView>
+      {new Array(40).fill(0).map((_, i) => (
+        <View key={i} style={[styles.item, i % 2 && styles.odd]} />
+      ))}
+    </ScrollView>
+  );
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Navigator>
+        <Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerLargeTitle: true,
+          }}
+        />
+      </Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  item: {
+    height: 100,
+    backgroundColor: "#41b87a",
+  },
+  odd: {
+    backgroundColor: "#333333",
   },
 });
